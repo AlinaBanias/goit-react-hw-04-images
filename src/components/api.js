@@ -17,4 +17,4 @@ export const getImages = async (imageName, pageNumber) => {
     } catch (error) {
       console.log(error);  
     }
-};
+}; 
