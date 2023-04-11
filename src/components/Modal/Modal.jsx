@@ -11,24 +11,28 @@ export const Modal = ({ largeImageURL, toggleModal }) => {
 
     useEffect(() => {
         console.log('mounted');
-            
-        const closeModalByEsc = e => {
-            console.log(e.code);
-            if (e.code === 'Escape') {
-                toggleModal()
-            };
-        };
         
+        window.addEventListener('keydown', closeModalByEsc)
+        return () => window.removeEventListener('keydown', closeModalByEsc)  
 
-        document.addEventListener('keydown', closeModalByEsc)
+    })
 
-        return () => document.removeEventListener('keydown', closeModalByEsc)
+    const closeModalByEsc = e => {
+        console.log(e.code);
+        if (e.code === 'Escape') {
+            toggleModal()
+        };
+    };
 
-    }, [toggleModal])
+    const handleClickBackdrop = e => {
+        if(e.currentTarget !== e.target) {
+        toggleModal();
+        }
+    }
 
     return createPortal(
         <ModalWrapper>
-            <div className="Modal">
+            <div className="Modal" onClick={handleClickBackdrop}>
                 <img src={largeImageURL} alt="" />
             </div>
         </ModalWrapper>,
