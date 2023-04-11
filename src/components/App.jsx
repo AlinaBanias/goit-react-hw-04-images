@@ -31,6 +31,7 @@ export const App = () => {
       })
       .catch(error => console.log(error))
       .finally(() => setLoading(false))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageName, page]);
 
 
@@ -56,7 +57,7 @@ export const App = () => {
   };
 
     return (
-      <div className="App">
+      <div>
         <SearchBar onSubmit={handleFormSubmit} />
         <ImageGallery
           gallery={gallery}/>
