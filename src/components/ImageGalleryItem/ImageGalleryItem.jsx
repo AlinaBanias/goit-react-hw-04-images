@@ -14,8 +14,8 @@ export const ImageGalleryItem = ({imageUrl, tags, largeImageURL}) => {
 
 
     return (
-        <ImageGallerItemWrapper className="ImageGalleryItem" onClick={toggleModal}>
-            <img className="ImageGalleryItem-image" src={imageUrl} alt={tags} />
+        <ImageGallerItemWrapper className="ImageGalleryItem" >
+            <img className="ImageGalleryItem-image" src={imageUrl} alt={tags} onClick={toggleModal} />
             {modalActive && <Modal largeImageURL={largeImageURL} toggleModal={toggleModal} />}
         </ImageGallerItemWrapper>
     );
