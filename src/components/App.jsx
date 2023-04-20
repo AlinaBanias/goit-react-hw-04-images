@@ -14,6 +14,7 @@ export const App = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalResult, setTotalResult] = useState(0)
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!imageName ) {
@@ -22,7 +23,7 @@ export const App = () => {
 
     setLoading(true);
 
-    getImages(imageName, page)
+    getImages( page , imageName)
       .then(response => {
         if (response.data.hits.length !== 0) {
           setGallery([...gallery, ...response.data.hits])
@@ -31,8 +32,7 @@ export const App = () => {
       })
       .catch(error => console.log(error))
       .finally(() => setLoading(false))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imageName, page]);
+  }, [page , imageName]);
 
 
   const handleFormSubmit = submitedImageName => {
@@ -62,8 +62,9 @@ export const App = () => {
         <ImageGallery
           gallery={gallery}/>
         <Loader loading={loading} />
-        {gallery.length === 0 && imageName && !loading && <h2 style={{margin:'150px auto'}}>Sorry, we couldn't find any result :(</h2> }
+        {gallery.length === 0 && imageName && !loading && <h2 style={{margin:'150px auto'}}>Sorry, we couldn't find any result : (</h2> }
         {gallery.length >= 1 && gallery.length < totalResult &&  <LoadMoreButton getNextPage={getNextPage} />}
+        {error && <p>{error}</p>}
       </div>
     );
 };
