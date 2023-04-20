@@ -23,16 +23,16 @@ export const App = () => {
 
     setLoading(true);
 
-    getImages( page , imageName)
+    getImages( imageName, page )
       .then(response => {
         if (response.data.hits.length !== 0) {
-          setGallery([...gallery, ...response.data.hits])
+          setGallery(prev => [...prev , ...response.data.hits])
           setTotalResult(response.data.total)
         };
       })
-      .catch(error => console.log(error))
+      .catch(error => setError(error))
       .finally(() => setLoading(false))
-  }, [page , imageName]);
+  }, [imageName, page]);
 
 
   const handleFormSubmit = submitedImageName => {
